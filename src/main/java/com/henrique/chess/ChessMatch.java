@@ -1,6 +1,8 @@
 package com.henrique.chess;
 
 import com.henrique.boardgame.Board;
+import com.henrique.boardgame.Piece;
+import com.henrique.boardgame.Position;
 import com.henrique.chess.pieces.King;
 import com.henrique.chess.pieces.Rook;
 
@@ -22,6 +24,27 @@ public class ChessMatch {
             }
         }
         return mat;
+    }
+
+    public ChessPiece performChessMove(ChessPosition sourcePosition,ChessPosition targetPosition) {
+        Position source = sourcePosition.toPosition();
+        Position target = targetPosition.toPosition();
+        validateSourcePosition(source);
+        Piece capturedPiece = makeMove(source, target);
+        return (ChessPiece) capturedPiece;
+    }
+
+    public Piece makeMove(Position source, Position target) {
+        Piece p = board.removePiece(source);
+        Piece capturedPiece = board.removePiece(target);
+        board.placePiece(p, target);
+        return capturedPiece;
+    }
+
+    private void validateSourcePosition(Position position) {
+        if (!board.thereIsAPiece(position)) {
+            throw new ChessException("There is no Piece on Source Position.");
+        }
     }
 
     private void placeNewPiece(char column, int row, ChessPiece piece) {
