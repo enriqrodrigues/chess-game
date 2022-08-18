@@ -1,10 +1,13 @@
 package com.henrique;
 
+import com.henrique.chess.ChessMatch;
+
 public class ChessGameApplication {
 
     public static void main(String[] args) {
 
-        System.out.println("Welcome to my application!");
+        ChessMatch chessMatch = new ChessMatch();
+        UI.printBoard(chessMatch.getPieces());
 
     }
 
