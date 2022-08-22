@@ -1,7 +1,6 @@
 package com.henrique.boardgame;
 
 public class Board {
-
     private int rows;
     private int columns;
     private Piece[][] pieces;
@@ -25,40 +24,40 @@ public class Board {
 
     public Piece piece(int row, int column) {
         if (!positionExists(row, column)) {
-            throw new BoardException("Position not on the board.");
+            throw new BoardException("Position not on the board");
         }
         return pieces[row][column];
     }
 
-    public Piece piece(Position p) {
-        if (!positionExists(p)) {
-            throw new BoardException("Position not on the board.");
+    public Piece piece(Position position) {
+        if (!positionExists(position)) {
+            throw new BoardException("Position not on the board");
         }
-        return pieces[p.getRow()][p.getColumn()];
+        return pieces[position.getRow()][position.getColumn()];
     }
 
     public void placePiece(Piece piece, Position position) {
         if (thereIsAPiece(position)) {
-            throw new BoardException("There is already a piece on position" + position);
+            throw new BoardException("There is already a piece on position " + position);
         }
         pieces[position.getRow()][position.getColumn()] = piece;
         piece.position = position;
     }
 
-    public Piece removePiece(Position p) {
-        if (!positionExists(p)) {
-            throw new BoardException("Position not on the board.");
+    public Piece removePiece(Position position) {
+        if (!positionExists(position)) {
+            throw new BoardException("Position not on the board");
         }
-        if (piece(p) == null) {
+        if (piece(position) == null) {
             return null;
         }
-        Piece aux = piece(p);
+        Piece aux = piece(position);
         aux.position = null;
-        pieces[p.getRow()][ p.getColumn()] = null;
+        pieces[position.getRow()][position.getColumn()] = null;
         return aux;
     }
 
-    public boolean positionExists(int row, int column) {
+    private boolean positionExists(int row, int column) {
         return row >= 0 && row < rows && column >= 0 && column < columns;
     }
 
@@ -68,7 +67,7 @@ public class Board {
 
     public boolean thereIsAPiece(Position position) {
         if (!positionExists(position)) {
-            throw new BoardException("Position not on the board.");
+            throw new BoardException("Position not on the board");
         }
         return piece(position) != null;
     }
